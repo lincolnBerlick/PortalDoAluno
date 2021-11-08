@@ -1,5 +1,11 @@
 import React, {useState} from 'react';
-import {KeyboardAvoidingView, Platform, ScrollView, View} from 'react-native';
+import {
+  Alert,
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
+  View,
+} from 'react-native';
 import Button from '../components/button';
 import Input from '../components/input';
 import {formatarSaidaCPF} from '../utils/textMaskFormat';
@@ -35,7 +41,9 @@ const Login: React.FC = () => {
               returnKeyType="next"
               icon="lock-outline"
             />
-            <Button style={{marginTop: 32, marginBottom: 40}}>
+            <Button
+              onPress={() => Alert.alert('clicou')}
+              style={{marginTop: 32, marginBottom: 40}}>
               Criar Conta
             </Button>
             <View
