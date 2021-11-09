@@ -6,12 +6,14 @@ import {
   ScrollView,
   View,
 } from 'react-native';
-import Button from '../components/button';
-import Input from '../components/input';
-import {formatarSaidaCPF} from '../utils/textMaskFormat';
+import Button from '../../components/button';
+import Input from '../../components/input';
+import {useNavigation} from '@react-navigation/native';
+import {formatarSaidaCPF} from '../../utils/textMaskFormat';
 import {Title, Container, Cadastrese} from './styles';
 
 const Login: React.FC = () => {
+  const navigation = useNavigation();
   const [cpfValue, setCpfValue] = useState('');
   return (
     <>
@@ -44,7 +46,7 @@ const Login: React.FC = () => {
             <Button
               onPress={() => Alert.alert('clicou')}
               style={{marginTop: 32, marginBottom: 40}}>
-              Criar Conta
+              Entrar
             </Button>
             <View
               style={{
@@ -60,7 +62,9 @@ const Login: React.FC = () => {
                 }}
               />
             </View>
-            <Cadastrese>Cadastre-se</Cadastrese>
+            <Cadastrese onPress={() => navigation.navigate('Cadastro')}>
+              Cadastre-se
+            </Cadastrese>
           </Container>
         </ScrollView>
       </KeyboardAvoidingView>

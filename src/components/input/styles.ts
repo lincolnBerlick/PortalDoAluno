@@ -32,10 +32,13 @@ export const TextInput = styled.TextInput`
 `;
 
 export const TextLabel = styled.Text`
+  font-size: 14px;
+  color: #424242;
   font-family: Inter;
   margin-bottom: 4px;
   margin-left: 3px;
   align-self: flex-start;
+  margin-top: 24px;
 `;
 
 export const Icon = styled(CommunityIcons)``;
