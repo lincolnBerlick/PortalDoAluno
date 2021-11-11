@@ -34,7 +34,7 @@ export const TextHeader = styled.Text`
   color: #75848f;
   font-family: 'Inter';
   font-weight: 600;
-  margin-bottom: 40px;
+
   margin-left: 14px;
   align-self: flex-start;
 `;

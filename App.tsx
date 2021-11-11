@@ -1,29 +1,19 @@
 import 'react-native-gesture-handler';
+
 import React from 'react';
 import {View, Text, StatusBar} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import Login from './src/pages/Login';
 import Cadastro from './src/pages/Cadastro';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-
-function HomeScreen() {
-  return (
-    <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-      <Text>Home Screen</Text>
-    </View>
-  );
-}
+import {TouchableOpacity} from 'react-native-gesture-handler';
 
 const Stack = createNativeStackNavigator();
 const App: React.FC = () => (
   <NavigationContainer>
     <StatusBar />
 
-    <Stack.Navigator
-      screenOptions={{
-        headerBackVisible: true,
-        headerBackTitle: '',
-      }}>
+    <Stack.Navigator>
       <Stack.Screen
         options={{headerBackVisible: false}}
         name="Login"
@@ -31,9 +21,7 @@ const App: React.FC = () => (
       />
       <Stack.Screen
         options={{
-          headerBackVisible: true,
-          headerTitle: '',
-          headerBackTitle: 'Login',
+          headerShown: false,
         }}
         name="Cadastro"
         component={Cadastro}

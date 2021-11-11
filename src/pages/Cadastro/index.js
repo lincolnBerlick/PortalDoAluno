@@ -1,15 +1,10 @@
 import React, {useState} from 'react';
-import {
-  Alert,
-  KeyboardAvoidingView,
-  Platform,
-  ScrollView,
-  View,
-} from 'react-native';
+import {Alert, KeyboardAvoidingView, Platform, ScrollView} from 'react-native';
 import Button from '../../components/button';
+import Header from '../../components/header';
 import Input from '../../components/input';
 import {formatarSaidaCPF} from '../../utils/textMaskFormat';
-import {Title, Container, Cadastrese, TextHeader} from './styles';
+import {Container, TextHeader} from './styles';
 
 const Cadastro = () => {
   const [cpfValue, setCpfValue] = useState('');
@@ -24,8 +19,9 @@ const Cadastro = () => {
           keyboardShouldPersistTaps="handled"
           contentContainerStyle={{flex: 1}}>
           <Container>
-            <Title>Cadastre-se</Title>
-            <TextHeader style={{marginTop: 40}}>Dados pessoais</TextHeader>
+            <Header />
+
+            <TextHeader style={{marginTop: 32}}>Dados pessoais</TextHeader>
             <Input
               labelText="Nome"
               autoCapitalize="none"
@@ -43,7 +39,6 @@ const Cadastro = () => {
               value={cpfValue}
               onChange={text => setNome(text.nativeEvent.text)}
             />
-
             <TextHeader style={{marginTop: 40}}>Dados de Login</TextHeader>
             <Input
               labelText="CPF"
