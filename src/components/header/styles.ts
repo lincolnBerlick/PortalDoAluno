@@ -2,7 +2,7 @@ import styled, {css} from 'styled-components/native';
 import CommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 export const Container = styled.View`
-  margin-top: 20%;
+  margin-top: 10%;
   align-self: flex-start;
 `;
 
@@ -12,7 +12,6 @@ export const TextLabel = styled.Text`
   font-family: 'Inter';
   font-weight: bold;
   text-align: center;
-  letter-spacing: 0.5em;
   text-decoration-color: #03a9f4;
 `;
 

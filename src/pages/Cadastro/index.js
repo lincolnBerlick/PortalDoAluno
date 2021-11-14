@@ -1,14 +1,20 @@
+import {useNavigation} from '@react-navigation/core';
 import React, {useState} from 'react';
 import {Alert, KeyboardAvoidingView, Platform, ScrollView} from 'react-native';
 import Button from '../../components/button';
 import Header from '../../components/header';
 import Input from '../../components/input';
-import {formatarSaidaCPF} from '../../utils/textMaskFormat';
+import {formatarSaidaCPF, formatarSaidaDat} from '../../utils/textMaskFormat';
 import {Container, TextHeader} from './styles';
 
 const Cadastro = () => {
   const [cpfValue, setCpfValue] = useState('');
   const [nome, setNome] = useState('');
+  const [dataNascimento, setDataNascimento] = useState('');
+  const [senha, setSenha] = useState('');
+
+  const navigation = useNavigation();
+
   return (
     <>
       <KeyboardAvoidingView
@@ -27,7 +33,7 @@ const Cadastro = () => {
               autoCapitalize="none"
               placeholder="Pedro Rodrigues"
               returnKeyType="next"
-              value={cpfValue}
+              value={nome}
               onChange={text => setNome(text.nativeEvent.text)}
             />
 
@@ -36,8 +42,10 @@ const Cadastro = () => {
               autoCapitalize="none"
               placeholder="00/00/000"
               returnKeyType="next"
-              value={cpfValue}
-              onChange={text => setNome(text.nativeEvent.text)}
+              value={dataNascimento}
+              onChange={text =>
+                setDataNascimento(formatarSaidaDat(text.nativeEvent.text))
+              }
             />
             <TextHeader style={{marginTop: 40}}>Dados de Login</TextHeader>
             <Input
@@ -56,9 +64,11 @@ const Cadastro = () => {
               placeholder="**********"
               returnKeyType="next"
               icon="lock-outline"
+              value={senha}
+              onChange={text => setSenha(text.nativeEvent.text)}
             />
             <Button
-              onPress={() => Alert.alert('clicou')}
+              onPress={() => navigation.navigate('DashBoard')}
               style={{marginTop: 32, marginBottom: 40}}>
               Cadastre-se
             </Button>

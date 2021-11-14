@@ -62,7 +62,7 @@ const Login: React.FC = () => {
                 }}
               />
             </View>
-            <Cadastrese onPress={() => navigation.navigate('Cadastro')}>
+            <Cadastrese onPress={() => navigation.navigate('Cadastro', null)}>
               Cadastre-se
             </Cadastrese>
           </Container>

@@ -24,9 +24,7 @@ export const Cadastrese = styled.Text`
   color: #03a9f4;
   font-family: 'Inter';
   font-weight: 600;
-  line-height: '150%';
   text-align: center;
-  letter-spacing: 0.5em;
   text-decoration: underline;
   text-decoration-color: #03a9f4;
 `;

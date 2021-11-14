@@ -6,7 +6,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import Login from './src/pages/Login';
 import Cadastro from './src/pages/Cadastro';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {TouchableOpacity} from 'react-native-gesture-handler';
+import DashBoard from './src/pages/dashboard';
 
 const Stack = createNativeStackNavigator();
 const App: React.FC = () => (
@@ -25,6 +25,13 @@ const App: React.FC = () => (
         }}
         name="Cadastro"
         component={Cadastro}
+      />
+      <Stack.Screen
+        options={{
+          headerShown: false,
+        }}
+        name="DashBoard"
+        component={DashBoard}
       />
     </Stack.Navigator>
   </NavigationContainer>

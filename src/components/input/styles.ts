@@ -9,7 +9,6 @@ export const ContainerTextInput = styled.View`
   padding: 0 16px;
   background-color: #ffffff;
   border-radius: 10px;
-
   border-width: 2px;
   border: 1px solid #eaeaeb;
   box-sizing: border-box;
