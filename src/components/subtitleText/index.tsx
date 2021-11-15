@@ -3,19 +3,21 @@ import {Text, TextInputProps, TextProps} from 'react-native';
 
 import {TextSubTitle} from './styles';
 
-interface TextTopProps {
-  sizeText: string;
-  children: string;
+interface TextTopProps extends TextProps {
+  sizeText: number;
+  children: React.ReactNode;
+  bold: boolean;
 }
 
 const SubTitleText: React.FC<TextTopProps> = ({
   sizeText,
   children,
-  ...rest
+  bold,
+  ...props
 }) => {
   return (
     <>
-      <TextSubTitle subTitleSize={sizeText} {...rest}>
+      <TextSubTitle subTitleSize={sizeText} isBold={bold} {...props}>
         {children}
       </TextSubTitle>
     </>

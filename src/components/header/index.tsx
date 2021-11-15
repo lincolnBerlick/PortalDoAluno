@@ -8,8 +8,8 @@ import {Container, TextLabel} from './styles';
 const Header: React.FC = (...props) => {
   const navigation = useNavigation();
   const {index, routes} = navigation.getState();
-  const ultimaRota = routes[0].name;
-  console.log(props);
+  const ultimaRota = routes.slice(-1)[0].name;
+  console.log(routes);
   return (
     <Container>
       <TextLabel onPress={() => navigation.goBack()}>

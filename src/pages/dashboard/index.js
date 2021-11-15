@@ -1,27 +1,19 @@
 import {useNavigation} from '@react-navigation/core';
 import React, {useState} from 'react';
-import {KeyboardAvoidingView, Platform, ScrollView, View} from 'react-native';
-import {FlatList} from 'react-native-gesture-handler';
+import {
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
+  View,
+  Alert,
+} from 'react-native';
+import {FlatList, TouchableOpacity} from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Button from '../../components/button';
 import MiniCard from '../../components/card';
 import SubTitleText from '../../components/subtitleText';
 import TextTop from '../../components/TextTop';
 import {AlunosCardView, Container, VerAulasLink, CardAlunoText} from './styles';
-
-const Lista = ({item: data}) => {
-  console.log(data);
-  const nomeCompleto = data.nome.split(' ');
-  return (
-    <View style={{marginRight: 8}}>
-      <MiniCard
-        data={data.data}
-        hora={data.hora}
-        aluna={nomeCompleto[0]}
-        situacao={data.situacao}></MiniCard>
-    </View>
-  );
-};
 
 const CardsAlunos = ({item: data}) => {
   const nomeCompleto = data.nome.split(' ');
@@ -60,13 +52,27 @@ const mockItems = [
     situacao: 'pendente',
   },
 ];
-const DashBoard = data => {
+const DashBoard = ({data, navigation}) => {
   const [cpfValue, setCpfValue] = useState('');
   const [nome, setNome] = useState('');
   const [dataNascimento, setDataNascimento] = useState('');
   const [senha, setSenha] = useState('');
 
-  const navigation = useNavigation();
+  const Lista = ({item: data}) => {
+    const nomeCompleto = data.nome.split(' ');
+
+    return (
+      <View style={{marginRight: 8}}>
+        <TouchableOpacity onPress={() => navigation.navigate('Aula')}>
+          <MiniCard
+            data={data.data}
+            hora={data.hora}
+            aluna={nomeCompleto[0]}
+            situacao={data.situacao}></MiniCard>
+        </TouchableOpacity>
+      </View>
+    );
+  };
 
   return (
     <>
@@ -79,7 +85,9 @@ const DashBoard = data => {
           contentContainerStyle={{flex: 1}}>
           <Container>
             <TextTop sizeText={'24px'}>Olá Lincoln</TextTop>
-            <SubTitleText sizeText={'20px'}> Próximas Aulas</SubTitleText>
+            <SubTitleText bold sizeText={'20px'}>
+              Próximas Aulas
+            </SubTitleText>
             <View>
               <FlatList
                 data={mockItems}

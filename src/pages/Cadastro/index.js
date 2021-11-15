@@ -1,4 +1,3 @@
-import {useNavigation} from '@react-navigation/core';
 import React, {useState} from 'react';
 import {Alert, KeyboardAvoidingView, Platform, ScrollView} from 'react-native';
 import Button from '../../components/button';
@@ -7,13 +6,11 @@ import Input from '../../components/input';
 import {formatarSaidaCPF, formatarSaidaDat} from '../../utils/textMaskFormat';
 import {Container, TextHeader} from './styles';
 
-const Cadastro = () => {
+const Cadastro = ({navigation, screenName}) => {
   const [cpfValue, setCpfValue] = useState('');
   const [nome, setNome] = useState('');
   const [dataNascimento, setDataNascimento] = useState('');
   const [senha, setSenha] = useState('');
-
-  const navigation = useNavigation();
 
   return (
     <>

@@ -7,6 +7,7 @@ import Login from './src/pages/Login';
 import Cadastro from './src/pages/Cadastro';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import DashBoard from './src/pages/dashboard';
+import Aula from './src/pages/aula';
 
 const Stack = createNativeStackNavigator();
 const App: React.FC = () => (
@@ -32,6 +33,14 @@ const App: React.FC = () => (
         }}
         name="DashBoard"
         component={DashBoard}
+      />
+
+      <Stack.Screen
+        options={{
+          headerShown: false,
+        }}
+        name="Aula"
+        component={Aula}
       />
     </Stack.Navigator>
   </NavigationContainer>
