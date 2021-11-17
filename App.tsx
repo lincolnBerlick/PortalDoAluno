@@ -16,7 +16,7 @@ const App: React.FC = () => (
 
     <Stack.Navigator>
       <Stack.Screen
-        options={{headerBackVisible: false}}
+        options={{headerBackVisible: false, headerShown: false}}
         name="Login"
         component={Login}
       />
