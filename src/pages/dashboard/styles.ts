@@ -4,7 +4,8 @@ import Feather from 'react-native-vector-icons/Feather';
 
 export const Container = styled.View`
   flex: 1;
-  padding: 0 30px ${Platform.OS === 'android' ? 150 : 40}px;
+  padding: 0 30px;
+  margin-top: ${Platform.OS === 'android' ? -50 : 0}px; ;
 `;
 
 export const Title = styled.Text`
