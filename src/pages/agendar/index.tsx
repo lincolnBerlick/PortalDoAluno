@@ -101,7 +101,7 @@ const Agendar: React.FC = (...props) => {
               placeholder="00:00 - 01:00"
               returnKeyType="next"
               value={dataNascimento}
-              icon="calendar"
+              icon="clock"
               onChange={text =>
                 setDataNascimento(formatarSaidaDat(text.nativeEvent.text))
               }
