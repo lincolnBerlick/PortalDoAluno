@@ -18,7 +18,7 @@ const Input: React.FC<InputProps> = ({labelText, icon, ...rest}) => {
   return (
     <Container>
       {labelText && <TextLabel>{labelText}</TextLabel>}
-      <ContainerTextInput>
+      <ContainerTextInput {...rest}>
         <TextInput
           keyboardAppearance="dark"
           placeholderTextColor="#666360"

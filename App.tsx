@@ -8,6 +8,7 @@ import Cadastro from './src/pages/Cadastro';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import DashBoard from './src/pages/dashboard';
 import Aula from './src/pages/aula';
+import Agendar from './src/pages/agendar';
 
 const Stack = createNativeStackNavigator();
 const App: React.FC = () => (
@@ -41,6 +42,13 @@ const App: React.FC = () => (
         }}
         name="Aula"
         component={Aula}
+      />
+      <Stack.Screen
+        options={{
+          headerShown: false,
+        }}
+        name="Agendar"
+        component={Agendar}
       />
     </Stack.Navigator>
   </NavigationContainer>

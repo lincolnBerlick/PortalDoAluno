@@ -97,7 +97,10 @@ const DashBoard = ({data, navigation}) => {
               />
             </View>
             <VerAulasLink>Ver todas as aulas</VerAulasLink>
-            <Button icon="calendar" style={{width: 163, marginTop: 24}}>
+            <Button
+              onPress={() => navigation.navigate('Agendar')}
+              icon="calendar"
+              style={{width: 163, marginTop: 24}}>
               {' '}
               Agendar aula
             </Button>
