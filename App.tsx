@@ -9,6 +9,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import DashBoard from './src/pages/dashboard';
 import Aula from './src/pages/aula';
 import Agendar from './src/pages/agendar';
+import CadastroAluno from './src/pages/CadastroAluno';
 
 const Stack = createNativeStackNavigator();
 const App: React.FC = () => (
@@ -49,6 +50,13 @@ const App: React.FC = () => (
         }}
         name="Agendar"
         component={Agendar}
+      />
+      <Stack.Screen
+        options={{
+          headerShown: false,
+        }}
+        name="CadastroAluno"
+        component={CadastroAluno}
       />
     </Stack.Navigator>
   </NavigationContainer>
