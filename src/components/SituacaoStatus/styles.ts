@@ -1,5 +1,5 @@
-import styled, {css} from 'styled-components/native';
-import CommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import styled from 'styled-components/native';
+// import CommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 interface Situacao {
   pendente: string;

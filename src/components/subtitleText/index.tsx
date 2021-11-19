@@ -1,5 +1,5 @@
-import React, {Children} from 'react';
-import {Text, TextInputProps, TextProps} from 'react-native';
+import React from 'react';
+import {TextProps} from 'react-native';
 
 import {TextSubTitle} from './styles';
 

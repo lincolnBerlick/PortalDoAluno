@@ -1,4 +1,4 @@
-import styled, {css} from 'styled-components/native';
+import styled from 'styled-components/native';
 import CommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 export const Container = styled.View``;

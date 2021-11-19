@@ -1,6 +1,4 @@
-import React, {Children} from 'react';
-import {Text, TextInputProps, TextProps} from 'react-native';
-import {FlatList} from 'react-native-gesture-handler';
+import React from 'react';
 import SituataoStatus from '../SituacaoStatus';
 
 import {Container, AlunoNomeText, Data, Hora, Icon} from './styles';

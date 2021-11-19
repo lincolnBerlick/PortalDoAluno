@@ -36,7 +36,7 @@ const mockItems = [
     hora: '10:15',
     situacao: 'pendente',
   },
-  {id: 2, nome: 'Luana sobre', data: '10/10', hora: '10:15', situacao: 'pago'},
+  {id: 2, nome: 'Luana Albe', data: '10/10', hora: '10:15', situacao: 'pago'},
   {
     id: 3,
     nome: 'Will nome2',
@@ -118,7 +118,12 @@ const DashBoard = ({data, navigation}) => {
                 horizontal={true}
               />
             </View>
-            <Button icon="plus" style={{width: 217, marginTop: 24}}>
+
+            <Button
+              onPress={() => navigation.navigate('CadastroAluno')}
+              icon="plus"
+              style={{width: 217, marginTop: 24}}>
+              {' '}
               Cadastrar novo aluno
             </Button>
           </Container>

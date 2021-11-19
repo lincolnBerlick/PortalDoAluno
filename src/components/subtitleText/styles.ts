@@ -1,5 +1,5 @@
-import styled, {css} from 'styled-components/native';
-import Icons from 'react-native-vector-icons/Feather';
+import styled from 'styled-components/native';
+// import Icons from 'react-native-vector-icons/Feather';
 
 interface SubTitleSize {
   subTitleSize: number;
