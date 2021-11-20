@@ -10,6 +10,8 @@ import DashBoard from './src/pages/dashboard';
 import Aula from './src/pages/aula';
 import Agendar from './src/pages/agendar';
 import CadastroAluno from './src/pages/CadastroAluno';
+import Aluno from './src/pages/Aluno';
+import ListaAulas from './src/pages/ListaAulas';
 
 const Stack = createNativeStackNavigator();
 const App: React.FC = () => (
@@ -57,6 +59,20 @@ const App: React.FC = () => (
         }}
         name="CadastroAluno"
         component={CadastroAluno}
+      />
+      <Stack.Screen
+        options={{
+          headerShown: false,
+        }}
+        name="Aluno"
+        component={Aluno}
+      />
+      <Stack.Screen
+        options={{
+          headerShown: false,
+        }}
+        name="ListaAulas"
+        component={ListaAulas}
       />
     </Stack.Navigator>
   </NavigationContainer>

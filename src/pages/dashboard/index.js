@@ -11,6 +11,7 @@ import {FlatList, TouchableOpacity} from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Button from '../../components/button';
 import MiniCard from '../../components/card';
+import BigCard from '../../components/cardBigger';
 import SubTitleText from '../../components/subtitleText';
 import TextTop from '../../components/TextTop';
 import {AlunosCardView, Container, VerAulasLink, CardAlunoText} from './styles';
@@ -96,7 +97,7 @@ const DashBoard = ({data, navigation}) => {
                 horizontal={true}
               />
             </View>
-            <VerAulasLink>Ver todas as aulas</VerAulasLink>
+            <VerAulasLink onPress={() => navigation.navigate('ListaAulas')}>Ver todas as aulas</VerAulasLink>
             <Button
               onPress={() => navigation.navigate('Agendar')}
               icon="calendar"
@@ -111,12 +112,14 @@ const DashBoard = ({data, navigation}) => {
             </SubTitleText>
 
             <View>
+            <TouchableOpacity onPress={() => navigation.navigate('Aula')}>
               <FlatList
                 data={mockItems}
                 renderItem={CardsAlunos}
                 keyExtractor={item => item.id}
                 horizontal={true}
               />
+            </TouchableOpacity>
             </View>
 
             <Button

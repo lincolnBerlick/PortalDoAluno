@@ -36,6 +36,7 @@ export const Hora = styled.Text`
 `;
 
 export const FlexBox = styled.Text`
+  width: 311px;
   display: flex;
   justify-content: space-between;
   align-items: center;
