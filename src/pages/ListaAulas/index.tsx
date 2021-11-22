@@ -11,8 +11,35 @@ import Header from '../../components/header';
 import SubTitleText from '../../components/subtitleText';
 import {Container, TextContent} from './styles';
 import DropDownPicker from 'react-native-dropdown-picker';
+import {FlatList, TouchableOpacity} from 'react-native-gesture-handler';
+import BigCard from '../../components/cardBigger';
 
-const ListaAulas: React.FC = (...props) => {
+const mockItems = [
+  {
+    id: 1,
+    nome: 'Luana',
+    data: '10/10',
+    hora: '10:15',
+    situacao: 'pendente',
+  },
+  {id: 2, nome: 'Luana', data: '10/10', hora: '10:15', situacao: 'pago'},
+  {
+    id: 3,
+    nome: 'Luana',
+    data: '10/10',
+    hora: '10:15',
+    situacao: 'pendente',
+  },
+  {
+    id: 4,
+    nome: 'Luana',
+    data: '10/10',
+    hora: '10:15',
+    situacao: 'pendente',
+  },
+];
+
+const ListaAulas = ({data, navigation}) => {
   const [dataNascimento, setDataNascimento] = useState('');
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(null);
@@ -20,6 +47,22 @@ const ListaAulas: React.FC = (...props) => {
     {label: 'Apple', value: 'apple'},
     {label: 'Banana', value: 'banana'},
   ]);
+
+  const Lista = ({item: data}) => {
+    const nomeCompleto = data.nome.split(' ');
+
+    return (
+      <View style={{marginRight: 8}}>
+        <TouchableOpacity onPress={() => navigation.navigate('Aula')}>
+          <BigCard
+            data={data.data}
+            hora={data.hora}
+            aluna={nomeCompleto[0]}
+            situacao={data.situacao}></BigCard>
+        </TouchableOpacity>
+      </View>
+    );
+  };
 
   return (
     <>
@@ -47,7 +90,7 @@ const ListaAulas: React.FC = (...props) => {
               Aluno
             </SubTitleText>
 
-            <View style={{zIndex: 2}}>
+            <View style={{zIndex: 2, marginBottom:20}}>
               <DropDownPicker
                 style={{
                   borderWidth: 0,
@@ -74,6 +117,15 @@ const ListaAulas: React.FC = (...props) => {
                 customItemLabelStyle={{
                   fontFamily: 'Inter',
                 }}
+              />
+            </View>
+
+            <View>
+              <FlatList
+                data={mockItems}
+                renderItem={Lista}
+                keyExtractor={item => item.id}
+                horizontal={false}
               />
             </View>
           </Container>

@@ -18,3 +18,22 @@ export const TextContent = styled.Text`
 `;
 
 export const Icon = styled(Icons)``;
+
+export const AlunosCardView = styled.View`
+  width: 100px;
+  height: 100px;
+  background-color: #ffffff;
+  border-radius: 50px;
+  justify-content: center;
+  align-items: center;
+  margin-right: 16px;
+`;
+
+export const CardAlunoText = styled.Text`
+  font-size: 12px;
+  color: #424242;
+  font-family: 'Inter';
+  line-height: 16px;
+  text-align: center;
+  margin-top: 4px;
+`;

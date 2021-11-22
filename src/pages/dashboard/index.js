@@ -112,7 +112,7 @@ const DashBoard = ({data, navigation}) => {
             </SubTitleText>
 
             <View>
-            <TouchableOpacity onPress={() => navigation.navigate('Aula')}>
+            <TouchableOpacity onPress={() => navigation.navigate('Aluno')}>
               <FlatList
                 data={mockItems}
                 renderItem={CardsAlunos}
