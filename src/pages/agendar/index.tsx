@@ -7,7 +7,6 @@ import {
   ScrollView,
   View,
 } from 'react-native';
-import {Icon} from '../../components/button/styles';
 import Header from '../../components/header';
 import SubTitleText from '../../components/subtitleText';
 import {Container, TextContent} from './styles';
@@ -17,7 +16,9 @@ import {formatarSaidaDat} from '../../utils/textMaskFormat';
 import Button from '../../components/button';
 
 const Agendar: React.FC = (...props) => {
-  const [dataNascimento, setDataNascimento] = useState('');
+  const [dataAula, setDataAula] = useState('');
+  const [horaAula, setHoraAula] = useState('');
+
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(null);
   const [items, setItems] = useState([
@@ -87,10 +88,10 @@ const Agendar: React.FC = (...props) => {
               autoCapitalize="none"
               placeholder="00/00/000"
               returnKeyType="next"
-              value={dataNascimento}
+              value={dataAula}
               icon="calendar"
               onChange={text =>
-                setDataNascimento(formatarSaidaDat(text.nativeEvent.text))
+                setDataAula(formatarSaidaDat(text.nativeEvent.text))
               }
             />
 
@@ -100,11 +101,9 @@ const Agendar: React.FC = (...props) => {
               autoCapitalize="none"
               placeholder="00:00 - 01:00"
               returnKeyType="next"
-              value={dataNascimento}
+              value={horaAula}
               icon="clock"
-              onChange={text =>
-                setDataNascimento(formatarSaidaDat(text.nativeEvent.text))
-              }
+              onChange={text => setHoraAula(text.nativeEvent.text)}
             />
 
             <SubTitleText

@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Alert, KeyboardAvoidingView, Platform, ScrollView} from 'react-native';
+import {KeyboardAvoidingView, Platform, ScrollView} from 'react-native';
 import Button from '../../components/button';
 import Header from '../../components/header';
 import Input from '../../components/input';
@@ -11,6 +11,15 @@ const Cadastro = ({navigation, screenName}) => {
   const [nome, setNome] = useState('');
   const [dataNascimento, setDataNascimento] = useState('');
   const [senha, setSenha] = useState('');
+
+  const cadastrar = () => {
+    const professor = {
+      nome: nome,
+      cpf: cpfValue,
+      senha: senha,
+      dataNascimento: dataNascimento,
+    };
+  };
 
   return (
     <>
