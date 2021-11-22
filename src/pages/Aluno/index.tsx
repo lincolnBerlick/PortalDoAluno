@@ -11,10 +11,53 @@ import BigCard from '../../components/cardBigger';
 import Header from '../../components/header';
 import SubTitleText from '../../components/subtitleText';
 import {Container, TextContent} from './styles';
+import {FlatList, TouchableOpacity} from 'react-native-gesture-handler';
 
-const Aluno: React.FC = (...props) => {
+const mockItems = [
+  {
+    id: 1,
+    nome: 'Luana',
+    data: '10/10',
+    hora: '10:15',
+    situacao: 'pendente',
+  },
+  {id: 2, nome: 'Luana', data: '10/10', hora: '10:15', situacao: 'pago'},
+  {
+    id: 3,
+    nome: 'Luana',
+    data: '10/10',
+    hora: '10:15',
+    situacao: 'pendente',
+  },
+  {
+    id: 4,
+    nome: 'Luana',
+    data: '10/10',
+    hora: '10:15',
+    situacao: 'pendente',
+  },
+];
+
+const Aluno = ({data, navigation}) => {
+  const Lista = ({item: data}) => {
+    const nomeCompleto = data.nome.split(' ');
+
+    return (
+      <View style={{marginRight: 8}}>
+        <TouchableOpacity onPress={() => navigation.navigate('Aula')}>
+          <BigCard
+            data={data.data}
+            hora={data.hora}
+            aluna={nomeCompleto[0]}
+            situacao={data.situacao}></BigCard>
+        </TouchableOpacity>
+      </View>
+    );
+  };
+
   return (
     <>
+    <ScrollView>
       <KeyboardAvoidingView
         style={{flex: 1}}
         behavior={Platform.OS === 'ios' ? 'padding' : undefined}
@@ -60,9 +103,20 @@ const Aluno: React.FC = (...props) => {
             <SubTitleText style={{color: '#000000'}} bold sizeText={16}>
               Aulas
             </SubTitleText>
+
+            <View>
+              <FlatList
+                data={mockItems}
+                renderItem={Lista}
+                keyExtractor={item => item.id}
+                horizontal={false}
+              />
+            </View>
+        
           </Container>
         </ScrollView>
       </KeyboardAvoidingView>
+      </ScrollView>
     </>
   );
 };
