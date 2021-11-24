@@ -40,7 +40,6 @@ const mockItems = [
 ];
 
 const ListaAulas = ({data, navigation}) => {
-  const [dataNascimento, setDataNascimento] = useState('');
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(null);
   const [items, setItems] = useState([
@@ -70,66 +69,62 @@ const ListaAulas = ({data, navigation}) => {
         style={{flex: 1}}
         behavior={Platform.OS === 'ios' ? 'padding' : undefined}
         enabled>
-        <ScrollView
-          nestedScrollEnabled={true}
-          contentContainerStyle={{flex: 1}}>
-          <Container>
-            <Header />
-            <SubTitleText
-              bold
-              style={{fontWeight: '600', marginTop: 24}}
-              sizeText={16}>
-              {' '}
-              Filtrar por:
-            </SubTitleText>
+        <Container>
+          <Header />
+          <SubTitleText
+            bold
+            style={{fontWeight: '600', marginTop: 24}}
+            sizeText={16}>
+            {' '}
+            Filtrar por:
+          </SubTitleText>
 
-            <SubTitleText
-              bold={false}
-              sizeText={14}
-              style={{color: '#424242', marginBottom: 4, marginTop: 24}}>
-              Aluno
-            </SubTitleText>
+          <SubTitleText
+            bold={false}
+            sizeText={14}
+            style={{color: '#424242', marginBottom: 4, marginTop: 24}}>
+            Aluno
+          </SubTitleText>
 
-            <View style={{zIndex: 2, marginBottom:20}}>
-              <DropDownPicker
-                style={{
-                  borderWidth: 0,
-                  borderColor: '#EAEAEB',
-                  borderRadius: 9,
-                }}
-                open={open}
-                value={value}
-                items={items}
-                setOpen={setOpen}
-                setValue={setValue}
-                setItems={setItems}
-                placeholder="Selecione Aluno(a, u, e, i)"
-                listMode="SCROLLVIEW"
-                dropDownDirection="BOTTOM"
-                bottomOffset={100}
-                dropDownContainerStyle={{
-                  borderWidth: 0,
-                }}
-                itemSeparator={true}
-                itemSeparatorStyle={{
-                  backgroundColor: '#EAEAEB',
-                }}
-                customItemLabelStyle={{
-                  fontFamily: 'Inter',
-                }}
-              />
-            </View>
+          <View style={{zIndex: 2, marginBottom: 20}}>
+            <DropDownPicker
+              style={{
+                borderWidth: 0,
+                borderColor: '#EAEAEB',
+                borderRadius: 9,
+              }}
+              open={open}
+              value={value}
+              items={items}
+              setOpen={setOpen}
+              setValue={setValue}
+              setItems={setItems}
+              placeholder="Selecione Aluno(a, u, e, i)"
+              listMode="SCROLLVIEW"
+              dropDownDirection="BOTTOM"
+              bottomOffset={100}
+              dropDownContainerStyle={{
+                borderWidth: 0,
+              }}
+              itemSeparator={true}
+              itemSeparatorStyle={{
+                backgroundColor: '#EAEAEB',
+              }}
+              customItemLabelStyle={{
+                fontFamily: 'Inter',
+              }}
+            />
+          </View>
 
-            <View>
-              <FlatList
-                data={mockItems}
-                renderItem={Lista}
-                keyExtractor={item => item.id}
-                horizontal={false}
-              />
-            </View>
-          </Container>
-        </ScrollView>
+          <View>
+            <FlatList
+              data={mockItems}
+              renderItem={Lista}
+              keyExtractor={item => item.id}
+              horizontal={false}
+            />
+          </View>
+        </Container>
       </KeyboardAvoidingView>
     </>
   );
