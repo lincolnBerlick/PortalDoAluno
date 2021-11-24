@@ -18,12 +18,20 @@ import Button from '../../components/button';
 const Agendar: React.FC = (...props) => {
   const [dataAula, setDataAula] = useState('');
   const [horaAula, setHoraAula] = useState('');
+  const [status, setStatus] = useState('');
 
   const [open, setOpen] = useState(false);
-  const [value, setValue] = useState(null);
+  const [openStatus, setStatusOpen] = useState(false);
+  const [aluno, setAlunos] = useState('');
+
   const [items, setItems] = useState([
     {label: 'Apple', value: 'apple'},
     {label: 'Banana', value: 'banana'},
+  ]);
+
+  const [itemsStatus, setItemsStatus] = useState([
+    {label: 'Pago', value: 'Pago'},
+    {label: 'Pendente', value: 'Pendente'},
   ]);
 
   return (
@@ -60,10 +68,10 @@ const Agendar: React.FC = (...props) => {
                   borderRadius: 9,
                 }}
                 open={open}
-                value={value}
+                value={aluno}
                 items={items}
                 setOpen={setOpen}
-                setValue={setValue}
+                setValue={setAlunos}
                 setItems={setItems}
                 placeholder="Selecione Aluno(a, u, e, i)"
                 listMode="SCROLLVIEW"
@@ -118,11 +126,8 @@ const Agendar: React.FC = (...props) => {
               autoCapitalize="none"
               placeholder="00:00 - 01:00"
               returnKeyType="next"
-              value={dataNascimento}
               icon="clock"
-              onChange={text =>
-                setDataNascimento(formatarSaidaDat(text.nativeEvent.text))
-              }
+              onChange={text => null}
             />
 
             <SubTitleText
@@ -138,13 +143,13 @@ const Agendar: React.FC = (...props) => {
                   borderColor: '#EAEAEB',
                   borderRadius: 9,
                 }}
-                open={open}
-                value={value}
-                items={items}
-                setOpen={setOpen}
-                setValue={setValue}
-                setItems={setItems}
-                placeholder="Selecione Aluno(a, u, e, i)"
+                open={openStatus}
+                value={status}
+                items={itemsStatus}
+                setOpen={setStatusOpen}
+                setValue={setStatus}
+                setItems={setItemsStatus}
+                placeholder="Status"
                 listMode="SCROLLVIEW"
                 dropDownDirection="BOTTOM"
                 bottomOffset={100}
@@ -175,10 +180,10 @@ const Agendar: React.FC = (...props) => {
                   borderRadius: 9,
                 }}
                 open={open}
-                value={value}
+                value={aluno}
                 items={items}
                 setOpen={setOpen}
-                setValue={setValue}
+                setValue={setAlunos}
                 setItems={setItems}
                 placeholder="Selecione Aluno(a, u, e, i)"
                 listMode="SCROLLVIEW"

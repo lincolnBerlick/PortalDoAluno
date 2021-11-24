@@ -6,6 +6,17 @@ import Input from '../../components/input';
 import {formatarSaidaCPF, formatarSaidaDat} from '../../utils/textMaskFormat';
 import {Container, TextHeader} from './styles';
 
+const cadastrar = () => {
+  const professor = {
+    nome: nome,
+    cpf: cpfValue,
+    senha: senha,
+    dataNascimento: dataNascimento,
+  };
+
+  console.log(professor);
+};
+
 const Cadastro = ({navigation, screenName}) => {
   const [cpfValue, setCpfValue] = useState('');
   const [nome, setNome] = useState('');
@@ -19,6 +30,11 @@ const Cadastro = ({navigation, screenName}) => {
       senha: senha,
       dataNascimento: dataNascimento,
     };
+
+    console.log(professor);
+
+    //todo se não houver erro e for criado
+    navigation.navigate('DashBoard');
   };
 
   return (
@@ -74,7 +90,7 @@ const Cadastro = ({navigation, screenName}) => {
               onChange={text => setSenha(text.nativeEvent.text)}
             />
             <Button
-              onPress={() => navigation.navigate('DashBoard')}
+              onPress={() => cadastrar()}
               style={{marginTop: 32, marginBottom: 40}}>
               Cadastre-se
             </Button>
