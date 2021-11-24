@@ -8,6 +8,7 @@ export const Container = styled.View`
   border-radius: 8px;
   padding-top: 16px;
   padding-left: 15px;
+  margin-bottom: 15px;
 `;
 
 export const AlunoNomeText = styled.Text`
@@ -35,12 +36,13 @@ export const Hora = styled.Text`
   line-height: 14px;
 `;
 
-export const FlexBox = styled.Text`
-  width: 311px;
+export const FlexBox = styled.View`
   display: flex;
+  flex-direction: row;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 16px;
+  padding-right: 15px;
 `;
 
 export const Icon = styled(Icons)``;
