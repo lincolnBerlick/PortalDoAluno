@@ -42,11 +42,17 @@ const mockItems = [
 const ListaAulas = ({data, navigation}) => {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(null);
+
   const [items, setItems] = useState([
     {label: 'Apple', value: 'apple'},
     {label: 'Banana', value: 'banana'},
   ]);
 
+  const otems = mockItems.map(item => {
+    item.nome;
+  });
+
+  console.log(otems);
   const Lista = ({item: data}) => {
     const nomeCompleto = data.nome.split(' ');
 

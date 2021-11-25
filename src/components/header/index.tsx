@@ -9,7 +9,6 @@ const Header: React.FC = (...props) => {
   const navigation = useNavigation();
   const {index, routes} = navigation.getState();
   const ultimaRota = routes.slice(-1)[0].name;
-  console.log(routes);
   return (
     <Container>
       <TextLabel onPress={() => navigation.goBack()}>
