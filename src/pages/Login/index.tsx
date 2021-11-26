@@ -12,19 +12,10 @@ import Input from '../../components/input';
 import {useNavigation} from '@react-navigation/native';
 import {formatarSaidaCPF} from '../../utils/textMaskFormat';
 import {Title, Container, Cadastrese} from './styles';
-import axios from 'axios';
-
-const request = async () => {
-  return await axios
-    .get('http://10.0.2.2:5000/professor', {})
-    .then(response => console.log(response.data))
-    .catch(error => console.log(error));
-};
 
 const Login: React.FC = () => {
   const navigation = useNavigation();
   const [cpfValue, setCpfValue] = useState('');
-  request();
   return (
     <>
       <KeyboardAvoidingView

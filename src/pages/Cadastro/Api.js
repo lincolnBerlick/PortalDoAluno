@@ -1,11 +1,16 @@
 import axios from 'axios';
 
 const axiosInstance = axios.create({
-  baseURL: 'http://192.168.0.11:8081/professor',
+  baseURL: 'http://10.0.2.2:3000',
 });
 
 export const cadastrarProfessor = professorRequest => {
-  axiosInstance.post(professorRequest).then(response => {
-    console.log(response.data);
-  });
+  const request = axiosInstance.post('/professor', professorRequest);
+  return request;
+};
+
+export const buscaGraus = () => {
+  const request = axiosInstance.get('/grau');
+
+  return request;
 };

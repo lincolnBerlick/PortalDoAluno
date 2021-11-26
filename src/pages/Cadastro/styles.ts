@@ -37,3 +37,4 @@ export const TextHeader = styled.Text`
   margin-left: 14px;
   align-self: flex-start;
 `;
+
