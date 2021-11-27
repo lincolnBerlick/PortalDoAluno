@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   Alert,
   KeyboardAvoidingView,
@@ -13,17 +13,49 @@ import {formatarSaidaCPF, formatarSaidaDat} from '../../utils/textMaskFormat';
 import {Container, TextHeader} from './styles';
 import DropDownPicker from 'react-native-dropdown-picker';
 import SubTitleText from '../../components/subtitleText';
+import {buscaFormacoes, cadastrarAluno} from './Api';
+import {enumFormater} from '../../utils/enumFormater';
 
 const CadastroAluno = ({navigation, screenName}) => {
   const [cpfValue, setCpfValue] = useState('');
   const [nome, setNome] = useState('');
-  const [dataNascimento, setDataNascimento] = useState('');
+  const [idade, setIdade] = useState('');
   const [open, setOpen] = useState(false);
-  const [value, setValue] = useState(null);
-  const [items, setItems] = useState([
-    {label: 'Ensino medio incompleto', value: 'Ensino medio incompleto'},
-    {label: 'Ensino superior completo', value: 'Ensino superior completo'},
-  ]);
+  const [escolaridadeId, setEscolaridadeId] = useState(null);
+  const [formacoes, setFormacoes] = useState([]);
+
+  const getEscolaridades = async () => {
+    try {
+      const {data} = await buscaFormacoes();
+      setFormacoes(enumFormater(data));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const cadastro = async () => {
+    const cpf = cpfValue.replace(/\D+/g, '');
+    const aluno = {
+      senha: '123456',
+      cpf,
+      nome,
+      idade,
+      escolaridadeId,
+    };
+    console.log(aluno);
+
+    try {
+      const response = await cadastrarAluno(aluno);
+      console.log(response);
+      navigation.navigate('DashBoard');
+    } catch (error) {
+      console.log(error.response);
+    }
+  };
+
+  useEffect(() => {
+    getEscolaridades();
+  }, []);
 
   return (
     <>
@@ -48,14 +80,13 @@ const CadastroAluno = ({navigation, screenName}) => {
             />
 
             <Input
-              labelText="Data de Nascimento"
+              labelText="Idade"
               autoCapitalize="none"
-              placeholder="00/00/000"
+              placeholder="00"
               returnKeyType="next"
-              value={dataNascimento}
-              onChange={text =>
-                setDataNascimento(formatarSaidaDat(text.nativeEvent.text))
-              }
+              value={idade}
+              maxLength={3}
+              onChange={text => setIdade(text.nativeEvent.text)}
             />
             <Input
               labelText="CPF"
@@ -79,11 +110,11 @@ const CadastroAluno = ({navigation, screenName}) => {
                   borderRadius: 9,
                 }}
                 open={open}
-                value={value}
-                items={items}
+                value={escolaridadeId}
+                items={formacoes}
                 setOpen={setOpen}
-                setValue={setValue}
-                setItems={setItems}
+                setValue={setEscolaridadeId}
+                setItems={setFormacoes}
                 placeholder="Selecione o Grau de escolaridade"
                 listMode="SCROLLVIEW"
                 dropDownDirection="BOTTOM"
@@ -101,7 +132,7 @@ const CadastroAluno = ({navigation, screenName}) => {
               />
             </View>
             <Button
-              onPress={() => navigation.navigate('DashBoard')}
+              onPress={() => cadastro()}
               style={{marginTop: 32, marginBottom: 40}}>
               Cadastrar aluno
             </Button>

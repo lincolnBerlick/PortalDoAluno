@@ -45,7 +45,7 @@ const Login: React.FC = () => {
               icon="lock-outline"
             />
             <Button
-              onPress={() => Alert.alert('clicou')}
+              onPress={() => navigation.navigate('DashBoard')}
               style={{marginTop: 32, marginBottom: 40}}>
               Entrar
             </Button>

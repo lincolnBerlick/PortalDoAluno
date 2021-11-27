@@ -1,8 +1,4 @@
-import axios from 'axios';
-
-const axiosInstance = axios.create({
-  baseURL: 'http://10.0.2.2:3000',
-});
+import axiosInstance from '../../utils/api';
 
 export const cadastrarProfessor = professorRequest => {
   const request = axiosInstance.post('/professor', professorRequest);
