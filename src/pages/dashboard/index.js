@@ -1,5 +1,5 @@
 import {useNavigation} from '@react-navigation/core';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   KeyboardAvoidingView,
   Platform,
@@ -14,6 +14,7 @@ import MiniCard from '../../components/card';
 import BigCard from '../../components/cardBigger';
 import SubTitleText from '../../components/subtitleText';
 import TextTop from '../../components/TextTop';
+import {listarAlunos} from './Api';
 import {AlunosCardView, Container, VerAulasLink, CardAlunoText} from './styles';
 
 const CardsAlunos = ({item: data}) => {
@@ -54,17 +55,30 @@ const mockItems = [
   },
 ];
 const DashBoard = ({data, navigation}) => {
-  const [cpfValue, setCpfValue] = useState('');
-  const [nome, setNome] = useState('');
-  const [dataNascimento, setDataNascimento] = useState('');
-  const [senha, setSenha] = useState('');
+  const [listaAlunos, setListaAlunos] = useState([]);
+
+  const getAlunos = async () => {
+    try {
+      const {data} = await listarAlunos();
+      console.log(data);
+      setListaAlunos(data);
+
+      console.log(listaAlunos);
+    } catch (error) {
+      console.log(error.response);
+    }
+  };
+
+  useEffect(() => {
+    getAlunos();
+  }, [listaAlunos]);
 
   const Lista = ({item: data}) => {
     const nomeCompleto = data.nome.split(' ');
 
     return (
       <View style={{marginRight: 8}}>
-        <TouchableOpacity onPress={() => navigation.navigate('Aula')}>
+        <TouchableOpacity onPress={() => navigation.navigate('Aluno')}>
           <MiniCard
             data={data.data}
             hora={data.hora}
@@ -97,7 +111,9 @@ const DashBoard = ({data, navigation}) => {
                 horizontal={true}
               />
             </View>
-            <VerAulasLink onPress={() => navigation.navigate('ListaAulas')}>Ver todas as aulas</VerAulasLink>
+            <VerAulasLink onPress={() => navigation.navigate('ListaAulas')}>
+              Ver todas as aulas
+            </VerAulasLink>
             <Button
               onPress={() => navigation.navigate('Agendar')}
               icon="calendar"
@@ -112,14 +128,14 @@ const DashBoard = ({data, navigation}) => {
             </SubTitleText>
 
             <View>
-            <TouchableOpacity onPress={() => navigation.navigate('Aluno')}>
-              <FlatList
-                data={mockItems}
-                renderItem={CardsAlunos}
-                keyExtractor={item => item.id}
-                horizontal={true}
-              />
-            </TouchableOpacity>
+              <TouchableOpacity onPress={() => navigation.navigate('Aluno')}>
+                <FlatList
+                  data={listaAlunos}
+                  renderItem={CardsAlunos}
+                  keyExtractor={item => item.id}
+                  horizontal={true}
+                />
+              </TouchableOpacity>
             </View>
 
             <Button
