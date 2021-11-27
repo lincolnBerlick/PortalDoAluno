@@ -1,4 +1,4 @@
-import styled, {css} from 'styled-components/native';
+import styled from 'styled-components/native';
 import Icons from 'react-native-vector-icons/Feather';
 
 export const Container = styled.View`

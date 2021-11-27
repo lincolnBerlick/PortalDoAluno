@@ -5,3 +5,9 @@ export const listarAlunos = () => {
 
   return request;
 };
+
+export const listarAulas = () => {
+  const request = axiosInstance.get('/aula');
+
+  return request;
+};

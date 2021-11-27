@@ -5,26 +5,26 @@ import {Container, AlunoNomeText, Data, Hora, Icon} from './styles';
 
 interface TextTopProps {
   data: string;
-  aluna: string;
+  aluno: string;
   situacao: string;
-  hora: string;
+  materia: string;
 }
 
 const MiniCard: React.FC<TextTopProps> = ({
-  aluna,
+  aluno,
   data,
+  materia,
   situacao,
-  hora,
   ...rest
 }) => {
   return (
     <Container {...rest}>
-      <AlunoNomeText>{aluna}</AlunoNomeText>
+      <AlunoNomeText>{aluno}</AlunoNomeText>
       <Data>
         <Icon name="calendar" size={13} /> {data}
       </Data>
       <Hora>
-        <Icon name="clock" size={13} /> {hora}
+        <Icon name="clock" size={13} /> {materia}
       </Hora>
       <SituataoStatus status={situacao}>Situacao</SituataoStatus>
     </Container>

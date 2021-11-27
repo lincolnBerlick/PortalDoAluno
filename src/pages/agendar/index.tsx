@@ -64,7 +64,7 @@ const Agendar: React.FC = (...props) => {
       });
       navigation.navigate('DashBoard');
     } catch (error) {
-      console.log(error.response);
+      Alert.alert('Não foi possível agendar a aula')
     }
   };
 
@@ -147,7 +147,7 @@ const Agendar: React.FC = (...props) => {
               style={{width: '60%'}}
               labelText="Valor"
               autoCapitalize="none"
-              placeholder="00:00 - 01:00"
+              placeholder="00,00"
               returnKeyType="next"
               icon="clock"
               onChange={text => null}

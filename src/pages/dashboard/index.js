@@ -14,7 +14,7 @@ import MiniCard from '../../components/card';
 import BigCard from '../../components/cardBigger';
 import SubTitleText from '../../components/subtitleText';
 import TextTop from '../../components/TextTop';
-import {listarAlunos} from './Api';
+import {listarAlunos, listarAulas} from './Api';
 import {AlunosCardView, Container, VerAulasLink, CardAlunoText} from './styles';
 
 const CardsAlunos = ({item: data}) => {
@@ -56,31 +56,48 @@ const mockItems = [
 ];
 const DashBoard = ({data, navigation}) => {
   const [listaAlunos, setListaAlunos] = useState([]);
+  const [listaAulas, setListaAulas] = useState([]);
 
   const getAlunos = async () => {
     try {
       const {data} = await listarAlunos();
       setListaAlunos(data);
     } catch (error) {
-      console.log(error.response);
+      Alert.alert('Não foi possível carregar a lista de alunos');
+    }
+  };
+
+  const getAulas = async () => {
+    try {
+      const {data} = await listarAulas();
+      setListaAulas(data);
+    } catch (error) {
+      Alert.alert('Não foi possível carregar a lista de aulas');
     }
   };
 
   useEffect(() => {
     getAlunos();
+    getAulas();
   }, []);
 
   const Lista = ({item: data}) => {
-    const nomeCompleto = data.nome.split(' ');
+    const {
+      aluno: {nome: nomeAluno},
+      materia: {nome: nomeMateria},
+      dataInicio,
+      status,
+    } = data;
+    const nomeCompleto = nomeAluno.split(' ');
 
     return (
       <View style={{marginRight: 8}}>
         <TouchableOpacity onPress={() => navigation.navigate('Aluno')}>
           <MiniCard
-            data={data.data}
-            hora={data.hora}
-            aluna={nomeCompleto[0]}
-            situacao={data.situacao}></MiniCard>
+            data={dataInicio}
+            materia={nomeMateria}
+            aluno={nomeCompleto[0]}
+            situacao={status}></MiniCard>
         </TouchableOpacity>
       </View>
     );
@@ -102,7 +119,7 @@ const DashBoard = ({data, navigation}) => {
             </SubTitleText>
             <View>
               <FlatList
-                data={mockItems}
+                data={listaAulas}
                 renderItem={Lista}
                 keyExtractor={item => item.id}
                 horizontal={true}

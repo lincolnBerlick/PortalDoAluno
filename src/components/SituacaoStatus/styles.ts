@@ -9,7 +9,7 @@ export const Container = styled.View<Situacao>`
   border-radius: 16px;
   height: 22px;
   background-color: ${props =>
-    props.pendente === 'pendente' ? '#F08080' : '#68C894'};
+    props.pendente.toLowerCase() === 'pendente' ? '#F08080' : '#68C894'};
   text-align: center;
   justify-content: center;
   align-content: center;
