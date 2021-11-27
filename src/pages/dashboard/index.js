@@ -60,10 +60,7 @@ const DashBoard = ({data, navigation}) => {
   const getAlunos = async () => {
     try {
       const {data} = await listarAlunos();
-      console.log(data);
       setListaAlunos(data);
-
-      console.log(listaAlunos);
     } catch (error) {
       console.log(error.response);
     }
@@ -71,7 +68,7 @@ const DashBoard = ({data, navigation}) => {
 
   useEffect(() => {
     getAlunos();
-  }, [listaAlunos]);
+  }, []);
 
   const Lista = ({item: data}) => {
     const nomeCompleto = data.nome.split(' ');

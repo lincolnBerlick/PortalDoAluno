@@ -1,5 +1,5 @@
 import {useNavigation} from '@react-navigation/core';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   Alert,
   KeyboardAvoidingView,
@@ -14,25 +14,59 @@ import DropDownPicker from 'react-native-dropdown-picker';
 import Input from '../../components/input';
 import {formatarSaidaDat} from '../../utils/textMaskFormat';
 import Button from '../../components/button';
+import {agendarAula, listarAlunos, returnEnumMaterias} from './Api';
+import {enumFormater} from '../../utils/enumFormater';
 
 const Agendar: React.FC = (...props) => {
-  const [dataAula, setDataAula] = useState('');
-  const [horaAula, setHoraAula] = useState('');
-  const [status, setStatus] = useState('');
-
-  const [open, setOpen] = useState(false);
+  const navigation = useNavigation();
   const [openStatus, setStatusOpen] = useState(false);
-  const [aluno, setAlunos] = useState('');
+  const [open, setOpen] = useState(false);
+  const [materiaOpen, setMateriaOpen] = useState(false);
 
-  const [items, setItems] = useState([
-    {label: 'Apple', value: 'apple'},
-    {label: 'Banana', value: 'banana'},
-  ]);
+  const [materias, setMaterias] = useState([]);
+  const [alunos, setAlunos] = useState([]);
+
+  const [dataInicio, setDataInicio] = useState('');
+  const [status, setStatus] = useState('');
+  const [alunoId, setAlunoId] = useState('');
+  const [materiaId, setMateriaId] = useState('');
 
   const [itemsStatus, setItemsStatus] = useState([
     {label: 'Pago', value: 'Pago'},
     {label: 'Pendente', value: 'Pendente'},
   ]);
+
+  const getMaterias = async () => {
+    const materiasList = await returnEnumMaterias();
+    setMaterias(enumFormater(materiasList));
+  };
+
+  const getAlunos = async () => {
+    const {data: listaAlunos} = await listarAlunos();
+    setAlunos(enumFormater(listaAlunos));
+  };
+
+  useEffect(() => {
+    getMaterias();
+    getAlunos();
+  }, []);
+
+  const agendamento = async () => {
+    try {
+      const {data} = await agendarAula({
+        dataInicio,
+        dataFinal: dataInicio,
+        status,
+        remarque: false,
+        professorId: 1,
+        alunoId,
+        materiaId,
+      });
+      navigation.navigate('DashBoard');
+    } catch (error) {
+      console.log(error.response);
+    }
+  };
 
   return (
     <>
@@ -68,12 +102,12 @@ const Agendar: React.FC = (...props) => {
                   borderRadius: 9,
                 }}
                 open={open}
-                value={aluno}
-                items={items}
+                value={alunoId}
+                items={alunos}
                 setOpen={setOpen}
-                setValue={setAlunos}
-                setItems={setItems}
-                placeholder="Selecione Aluno(a, u, e, i)"
+                setValue={setAlunoId}
+                setItems={setAlunos}
+                placeholder="Selecione Aluno"
                 listMode="SCROLLVIEW"
                 dropDownDirection="BOTTOM"
                 bottomOffset={100}
@@ -92,26 +126,15 @@ const Agendar: React.FC = (...props) => {
 
             <Input
               style={{width: '60%'}}
-              labelText="Data"
+              labelText="Data do Inicio"
               autoCapitalize="none"
               placeholder="00/00/000"
               returnKeyType="next"
-              value={dataAula}
+              value={dataInicio}
               icon="calendar"
               onChange={text =>
-                setDataAula(formatarSaidaDat(text.nativeEvent.text))
+                setDataInicio(formatarSaidaDat(text.nativeEvent.text))
               }
-            />
-
-            <Input
-              style={{width: '60%'}}
-              labelText="Horário"
-              autoCapitalize="none"
-              placeholder="00:00 - 01:00"
-              returnKeyType="next"
-              value={horaAula}
-              icon="clock"
-              onChange={text => setHoraAula(text.nativeEvent.text)}
             />
 
             <SubTitleText
@@ -179,13 +202,13 @@ const Agendar: React.FC = (...props) => {
                   borderColor: '#EAEAEB',
                   borderRadius: 9,
                 }}
-                open={open}
-                value={aluno}
-                items={items}
-                setOpen={setOpen}
-                setValue={setAlunos}
-                setItems={setItems}
-                placeholder="Selecione Aluno(a, u, e, i)"
+                open={materiaOpen}
+                value={materiaId}
+                items={materias}
+                setOpen={setMateriaOpen}
+                setValue={setMateriaId}
+                setItems={setMaterias}
+                placeholder="Selecione a Matéria"
                 listMode="SCROLLVIEW"
                 dropDownDirection="BOTTOM"
                 bottomOffset={100}
@@ -203,6 +226,7 @@ const Agendar: React.FC = (...props) => {
             </View>
             <Button
               icon=""
+              onPress={() => agendamento()}
               style={{marginTop: 32, marginBottom: 50, width: '100%'}}>
               Agendar Aula
             </Button>
