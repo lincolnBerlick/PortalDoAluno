@@ -1,5 +1,5 @@
 import {useNavigation} from '@react-navigation/core';
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   Alert,
   KeyboardAvoidingView,
@@ -13,6 +13,8 @@ import {Container, TextContent} from './styles';
 import DropDownPicker from 'react-native-dropdown-picker';
 import {FlatList, TouchableOpacity} from 'react-native-gesture-handler';
 import BigCard from '../../components/cardBigger';
+import {listarAlunos, listarAulas} from './Api';
+import {enumFormater} from '../../utils/enumFormater';
 
 const mockItems = [
   {
@@ -41,29 +43,46 @@ const mockItems = [
 
 const ListaAulas = ({data, navigation}) => {
   const [open, setOpen] = useState(false);
-  const [value, setValue] = useState(null);
+  const [aluno, setAluno] = useState(null);
+  const [listaAulas, setListaAulas] = useState([]);
+  const [alunos, setAlunos] = useState([]);
 
-  const [items, setItems] = useState([
-    {label: 'Apple', value: 'apple'},
-    {label: 'Banana', value: 'banana'},
-  ]);
+  const getAulas = async () => {
+    try {
+      const {data} = await listarAulas();
+      setListaAulas(data);
+    } catch (error) {
+      Alert.alert('Não foi possível carregar a lista de aulas');
+    }
+  };
 
-  const otems = mockItems.map(item => {
-    item.nome;
-  });
+  const getAlunos = async () => {
+    const {data: listaAlunos} = await listarAlunos();
+    setAlunos(enumFormater(listaAlunos));
+  };
 
-  console.log(otems);
+  useEffect(() => {
+    getAulas();
+    getAlunos();
+  }, []);
+
   const Lista = ({item: data}) => {
-    const nomeCompleto = data.nome.split(' ');
+    const {
+      aluno: {nome: nomeAluno},
+      materia: {nome: nomeMateria},
+      dataInicio,
+      status,
+    } = data;
+    const nomeCompleto = nomeAluno.split(' ');
 
     return (
       <View style={{marginRight: 8}}>
         <TouchableOpacity onPress={() => navigation.navigate('Aula')}>
           <BigCard
-            data={data.data}
-            hora={data.hora}
-            aluna={nomeCompleto[0]}
-            situacao={data.situacao}></BigCard>
+            data={dataInicio}
+            materia={nomeMateria}
+            aluno={nomeCompleto[0]}
+            situacao={status}></BigCard>
         </TouchableOpacity>
       </View>
     );
@@ -100,12 +119,12 @@ const ListaAulas = ({data, navigation}) => {
                 borderRadius: 9,
               }}
               open={open}
-              value={value}
-              items={items}
+              value={aluno}
+              items={alunos}
               setOpen={setOpen}
-              setValue={setValue}
-              setItems={setItems}
-              placeholder="Selecione Aluno(a, u, e, i)"
+              setValue={setAluno}
+              setItems={setAlunos}
+              placeholder="Selecione Aluno"
               listMode="SCROLLVIEW"
               dropDownDirection="BOTTOM"
               bottomOffset={100}
@@ -124,7 +143,7 @@ const ListaAulas = ({data, navigation}) => {
 
           <View>
             <FlatList
-              data={mockItems}
+              data={aluno ? listaAulas.filter(item => item.aluno.id === aluno) : listaAulas}
               renderItem={Lista}
               keyExtractor={item => item.id}
               horizontal={false}

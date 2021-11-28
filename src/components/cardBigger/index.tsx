@@ -5,29 +5,29 @@ import {Container, AlunoNomeText, Data, Hora, Icon, FlexBox} from './styles';
 
 interface TextTopProps {
   data: string;
-  aluna: string;
+  aluno: string;
   situacao: string;
-  hora: string;
+  materia: string;
 }
 
 const BigCard: React.FC<TextTopProps> = ({
-  aluna,
+  aluno,
   data,
   situacao,
-  hora,
+  materia,
   ...rest
 }) => {
   return (
     <Container {...rest}>
       <FlexBox>
-        <AlunoNomeText>{aluna}</AlunoNomeText>
+        <AlunoNomeText>{aluno}</AlunoNomeText>
         <SituataoStatus status={situacao}>Situacao</SituataoStatus>
       </FlexBox>
       <Data>
         <Icon name="calendar" size={13} /> {data}
       </Data>
       <Hora>
-        <Icon name="clock" size={13} /> {hora}
+        <Icon name="book" size={13} /> {materia}
       </Hora>
     </Container>
   );

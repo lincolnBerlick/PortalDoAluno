@@ -77,6 +77,7 @@ const DashBoard = ({data, navigation}) => {
   };
 
   useEffect(() => {
+    console.log('foi');
     getAlunos();
     getAulas();
   }, []);

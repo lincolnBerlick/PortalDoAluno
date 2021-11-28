@@ -42,8 +42,6 @@ const CadastroAluno = ({navigation, screenName}) => {
       idade,
       escolaridadeId,
     };
-    console.log(aluno);
-
     try {
       const response = await cadastrarAluno(aluno);
       console.log(response);
