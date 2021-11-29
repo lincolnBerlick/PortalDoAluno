@@ -8,6 +8,7 @@ import {cadastrarProfessor, buscaGraus} from './Api';
 import {Container, TextHeader} from './styles';
 import DropDownPicker from 'react-native-dropdown-picker';
 import {enumFormater} from '../../utils/enumFormater';
+import SubTitleText from '../../components/subtitleText';
 
 const Cadastro = ({navigation, screenName}) => {
   const [cpfValue, setCpfValue] = useState('');
@@ -80,37 +81,36 @@ const Cadastro = ({navigation, screenName}) => {
               maxLength={16}
               onChange={text => setCrn(text.nativeEvent.text)}
             />
-            <Container>
-              <View style={{zIndex: 2, marginBottom: 20}}>
-                <DropDownPicker
-                  style={{
-                    borderWidth: 0,
-                    borderColor: '#EAEAEB',
-                    borderRadius: 9,
-                  }}
-                  open={open}
-                  value={grau}
-                  items={graus}
-                  setOpen={setOpen}
-                  setValue={setGrau}
-                  setItems={setGraus}
-                  placeholder="Selecione seu grau de formação"
-                  listMode="SCROLLVIEW"
-                  dropDownDirection="BOTTOM"
-                  bottomOffset={100}
-                  dropDownContainerStyle={{
-                    borderWidth: 0,
-                  }}
-                  itemSeparator={true}
-                  itemSeparatorStyle={{
-                    backgroundColor: '#EAEAEB',
-                  }}
-                  customItemLabelStyle={{
-                    fontFamily: 'Inter',
-                  }}
-                />
-              </View>
-            </Container>
+            <View style={{marginTop: 20}}>
+              <DropDownPicker
+                style={{
+                  borderWidth: 0,
+                  borderColor: '#EAEAEB',
+                  borderRadius: 9,
+                  width: 311,
+                }}
+                open={open}
+                value={grau}
+                items={graus}
+                setOpen={setOpen}
+                setValue={setGrau}
+                setItems={setGraus}
+                placeholder="Selecione seu grau de formação"
+                listMode="SCROLLVIEW"
+                dropDownDirection="BOTTOM"
+                bottomOffset={100}
+                dropDownContainerStyle={{
+                  borderWidth: 0,
+                }}
+                itemSeparator={true}
+                itemSeparatorStyle={{
+                  backgroundColor: '#EAEAEB',
+                }}
+                customItemLabelStyle={{
+                  fontFamily: 'Inter',
+                }}
+              />
+            </View>
             <TextHeader style={{marginTop: 40}}>Dados de Login</TextHeader>
             <Input
               labelText="CPF"
