@@ -19,23 +19,28 @@ import {AlunosCardView, Container, VerAulasLink, CardAlunoText} from './styles';
 
 import LoginContext from '../../context/TarefasContext';
 
-const CardsAlunos = ({item: data}) => {
-  const nomeCompleto = data.nome.split(' ');
-  return (
-    <AlunosCardView>
-      <View style={{marginRight: 8}}></View>
-      <Icon name="ios-person-outline" size={20} />
-      <CardAlunoText>
-        {nomeCompleto[0]} {'\n'} {nomeCompleto[1]}
-      </CardAlunoText>
-    </AlunosCardView>
-  );
-};
+
 const DashBoard = ({data, navigation}) => {
   const [listaAlunos, setListaAlunos] = useState([]);
   const [listaAulas, setListaAulas] = useState([]);
 
   const {state} = useContext(LoginContext);
+
+  const CardsAlunos = ({item: data}) => {
+    console.log(data);
+    const nomeCompleto = data.nome.split(' ');
+    return (
+      <TouchableOpacity onPress={() => navigation.navigate('Aluno',{cpfAluno:data.cpf})}>
+        <AlunosCardView>
+          <View style={{marginRight: 8}}></View>
+          <Icon name="ios-person-outline" size={20} />
+          <CardAlunoText>
+            {nomeCompleto[0]} {'\n'} {nomeCompleto[1]}
+          </CardAlunoText>
+        </AlunosCardView>
+      </TouchableOpacity>
+    );
+  };
 
   console.log(state);
   const getAlunos = async () => {
@@ -132,14 +137,12 @@ const DashBoard = ({data, navigation}) => {
             </SubTitleText>
 
             <View>
-              <TouchableOpacity onPress={() => navigation.navigate('Aluno')}>
-                <FlatList
-                  data={listaAlunos}
-                  renderItem={CardsAlunos}
-                  keyExtractor={item => item.id}
-                  horizontal={true}
-                />
-              </TouchableOpacity>
+              <FlatList
+                data={listaAlunos}
+                renderItem={CardsAlunos}
+                keyExtractor={item => item.id}
+                horizontal={true}
+              />
             </View>
 
             <Button

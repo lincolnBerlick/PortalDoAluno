@@ -15,39 +15,65 @@ import {Container, TextContent} from './styles';
 import {FlatList, TouchableOpacity} from 'react-native-gesture-handler';
 import {getAulaAlunos} from './Api';
 import {formatarSaidaCPF} from '../../utils/textMaskFormat';
+import {getAula, getAluno, listarAulas} from './Api';
 
-const Aluno = ({data, navigation, route}) => {
-  const [aulas, setAulas] = useState([]);
-  const [aluno, setAluno] = useState({});
-  const [nomeAluno, setNomeAluno] = useState();
+const Aluno = ({data, route}) => {
+  const [nome, setNome] = useState('');
+  const [idade, setIdade] = useState('');
+  const [cpf, setCpf] = useState('');
+  const [aluno, setAluno] = useState(null);
+  const [listaAulas, setListaAulas] = useState([]);
 
-  const cpfAluno = route.params?.alunoCpf;
+  const getAlunos = async cpfAluno => {
+    try {
+      const {data} = await getAluno(cpfAluno);
+      setItemScreen(data);
+    } catch (error) {
+      Alert.alert('Não foi possível carregar o aluno');
+    }
+  };
 
-  const getAulasAluno = async () => {
-    const {data} = await getAulaAlunos(cpfAluno);
-    setNomeAluno(data.nome);
-
-    console.log(data);
-    setAluno(data);
-
-    setAulas(data.aulas);
+  const getAulas = async () => {
+    try {
+      const {data} = await listarAulas();
+      setListaAulas(data);
+    } catch (error) {
+      Alert.alert('Não foi possível carregar a lista de aulas');
+    }
   };
 
   useEffect(() => {
-    getAulasAluno();
+    getAlunos(route.params?.cpfAluno);
+    getAulas();
   }, []);
 
+  const setItemScreen = ({nome, idade, cpf}) => {
+    setNome(nome);
+    setIdade(idade);
+    setCpf(cpf);
+  };
+
   const Lista = ({item: data}) => {
+    const {
+      aluno: {nome: nomeAluno},
+      materia: {nome: nomeMateria},
+      dataInicio,
+      status,
+    } = data;
     const nomeCompleto = nomeAluno.split(' ');
+    const aulaId = data?.id;
+
     return (
-      <TouchableOpacity
-        onPress={() => navigation.navigate('Aula', {aulaId: data.id})}>
-        <BigCard
-          data={data.dataFinal}
-          materia={data.hora}
-          aluno={nomeCompleto}
-          situacao={data.status}></BigCard>
-      </TouchableOpacity>
+      <View style={{marginRight: 8}}>
+        <TouchableOpacity
+          onPress={() => navigation.navigate('Aula', {aulaId: aulaId})}>
+          <BigCard
+            data={dataInicio}
+            materia={nomeMateria}
+            aluno={nomeCompleto[0]}
+            situacao={status}></BigCard>
+        </TouchableOpacity>
+      </View>
     );
   };
 
@@ -68,18 +94,18 @@ const Aluno = ({data, navigation, route}) => {
           </SubTitleText>
 
           <SubTitleText bold={false} sizeText={12}>
-            Aluna
+            Aluno
           </SubTitleText>
-          <TextContent>Luana Albertoni</TextContent>
+          <TextContent>{nome}</TextContent>
 
           <SubTitleText bold={false} sizeText={12}>
             Idade
           </SubTitleText>
-          <TextContent>{aluno.idade}</TextContent>
+          <TextContent>{idade}</TextContent>
           <SubTitleText bold={false} sizeText={12}>
             CPF
           </SubTitleText>
-          <TextContent>{formatarSaidaCPF(aluno.cpf)}</TextContent>
+          <TextContent>{cpf}</TextContent>
 
           <View
             style={{
@@ -102,7 +128,11 @@ const Aluno = ({data, navigation, route}) => {
 
           <View style={{flex: 1}}>
             <FlatList
-              data={aulas}
+              data={
+                aluno
+                  ? listaAulas.filter(item => item.aluno.id === aluno)
+                  : listaAulas
+              }
               renderItem={Lista}
               keyExtractor={item => item.id}
               horizontal={false}
