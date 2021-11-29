@@ -1,21 +1,13 @@
 import {useNavigation} from '@react-navigation/core';
 import React, {useEffect, useState} from 'react';
-import {
-  Alert,
-  KeyboardAvoidingView,
-  Platform,
-  ScrollView,
-  View,
-  VirtualizedList,
-} from 'react-native';
+import {Alert, KeyboardAvoidingView, Platform, View} from 'react-native';
 import BigCard from '../../components/cardBigger';
 import Header from '../../components/header';
 import SubTitleText from '../../components/subtitleText';
 import {Container, TextContent} from './styles';
 import {FlatList, TouchableOpacity} from 'react-native-gesture-handler';
-import {getAulaAlunos} from './Api';
 import {formatarSaidaCPF} from '../../utils/textMaskFormat';
-import {getAula, getAluno, listarAulas} from './Api';
+import {getAluno, listarAulas} from './Api';
 
 const Aluno = ({data, route}) => {
   const [nome, setNome] = useState('');
@@ -77,6 +69,9 @@ const Aluno = ({data, route}) => {
     );
   };
 
+  {
+    console.log(listaAulas);
+  }
   return (
     <>
       <KeyboardAvoidingView
@@ -105,8 +100,7 @@ const Aluno = ({data, route}) => {
           <SubTitleText bold={false} sizeText={12}>
             CPF
           </SubTitleText>
-          <TextContent>{cpf}</TextContent>
-
+          <TextContent>{formatarSaidaCPF(cpf)}</TextContent>
           <View
             style={{
               flexDirection: 'row',
@@ -128,11 +122,7 @@ const Aluno = ({data, route}) => {
 
           <View style={{flex: 1}}>
             <FlatList
-              data={
-                aluno
-                  ? listaAulas.filter(item => item.aluno.id === aluno)
-                  : listaAulas
-              }
+              data={listaAulas.filter(item => item.aluno.nome === nome)}
               renderItem={Lista}
               keyExtractor={item => item.id}
               horizontal={false}
