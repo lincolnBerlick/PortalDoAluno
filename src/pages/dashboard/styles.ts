@@ -43,7 +43,7 @@ export const VerAulasLink = styled.Text`
   font-style: normal;
   font-weight: 600;
   font-size: 14px;
-  line-height: 21px;
+
   text-decoration-line: underline;
   color: #03a9f4;
   margin-top: 16px;
@@ -63,7 +63,7 @@ export const CardAlunoText = styled.Text`
   font-size: 12px;
   color: #424242;
   font-family: 'Inter';
-  line-height: 16px;
+
   text-align: center;
   margin-top: 4px;
 `;

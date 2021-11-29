@@ -23,5 +23,4 @@ export const SituacaoText = styled.Text`
   font-size: 12px;
   color: #ffffff;
   font-family: Inter;
-  line-height: 14px;
 `;

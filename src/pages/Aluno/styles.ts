@@ -12,7 +12,7 @@ export const TextContent = styled.Text`
   font-size: 14px;
   color: #424242;
   font-family: 'Inter';
-  line-height: 16px;
+
   font-weight: 600;
   margin-top: -11px;
 `;
@@ -33,7 +33,7 @@ export const CardAlunoText = styled.Text`
   font-size: 12px;
   color: #424242;
   font-family: 'Inter';
-  line-height: 16px;
+
   text-align: center;
   margin-top: 4px;
 `;

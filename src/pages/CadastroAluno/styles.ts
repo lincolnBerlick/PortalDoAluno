@@ -2,9 +2,9 @@ import {Platform} from 'react-native';
 import styled, {css} from 'styled-components/native';
 
 export const Container = styled.View`
-flex: 1;
-padding: 0 30px;
-margin-top: ${Platform.OS === 'android' ? 0 : 40}px; ;
+  flex: 1;
+  padding: 0 30px;
+  margin-top: ${Platform.OS === 'android' ? 0 : 40}px; ;
 `;
 
 export const Title = styled.Text`
@@ -12,7 +12,7 @@ export const Title = styled.Text`
   color: #03a9f4;
   font-family: 'Inter';
   font-weight: bold;
-  line-height: 38.4px;
+
   text-align: center;
   margin-bottom: 69px;
 `;

@@ -1,5 +1,5 @@
-import {useNavigation} from '@react-navigation/core';
-import React, {useEffect, useState} from 'react';
+import {useFocusEffect, useNavigation} from '@react-navigation/core';
+import React, {useContext, useEffect, useState} from 'react';
 import {
   KeyboardAvoidingView,
   Platform,
@@ -17,6 +17,8 @@ import TextTop from '../../components/TextTop';
 import {listarAlunos, listarAulas} from './Api';
 import {AlunosCardView, Container, VerAulasLink, CardAlunoText} from './styles';
 
+import LoginContext from '../../context/TarefasContext';
+
 const CardsAlunos = ({item: data}) => {
   const nomeCompleto = data.nome.split(' ');
   return (
@@ -29,35 +31,13 @@ const CardsAlunos = ({item: data}) => {
     </AlunosCardView>
   );
 };
-
-const mockItems = [
-  {
-    id: 1,
-    nome: 'Lincoln Berlick',
-    data: '10/10',
-    hora: '10:15',
-    situacao: 'pendente',
-  },
-  {id: 2, nome: 'Luana Albe', data: '10/10', hora: '10:15', situacao: 'pago'},
-  {
-    id: 3,
-    nome: 'Will nome2',
-    data: '10/10',
-    hora: '10:15',
-    situacao: 'pendente',
-  },
-  {
-    id: 4,
-    nome: 'Carlos nomin',
-    data: '10/10',
-    hora: '10:15',
-    situacao: 'pendente',
-  },
-];
 const DashBoard = ({data, navigation}) => {
   const [listaAlunos, setListaAlunos] = useState([]);
   const [listaAulas, setListaAulas] = useState([]);
 
+  const {state} = useContext(LoginContext);
+
+  console.log(state);
   const getAlunos = async () => {
     try {
       const {data} = await listarAlunos();
@@ -66,6 +46,13 @@ const DashBoard = ({data, navigation}) => {
       Alert.alert('Não foi possível carregar a lista de alunos');
     }
   };
+
+  useFocusEffect(
+    React.useCallback(() => {
+      getAlunos();
+      getAulas();
+    }, []),
+  );
 
   const getAulas = async () => {
     try {
@@ -77,7 +64,6 @@ const DashBoard = ({data, navigation}) => {
   };
 
   useEffect(() => {
-    console.log('foi');
     getAlunos();
     getAulas();
   }, []);
@@ -93,7 +79,10 @@ const DashBoard = ({data, navigation}) => {
 
     return (
       <View style={{marginRight: 8}}>
-        <TouchableOpacity onPress={() => navigation.navigate('Aluno')}>
+        <TouchableOpacity
+          onPress={() =>
+            navigation.navigate('Aluno', {alunoCpf: data.aluno.cpf})
+          }>
           <MiniCard
             data={dataInicio}
             materia={nomeMateria}

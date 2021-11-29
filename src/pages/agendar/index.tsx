@@ -1,10 +1,15 @@
-import {useNavigation} from '@react-navigation/core';
-import React, {useEffect, useState} from 'react';
+import {
+  useFocusEffect,
+  useIsFocused,
+  useNavigation,
+} from '@react-navigation/core';
+import React, {useCallback, useContext, useEffect, useState} from 'react';
 import {
   Alert,
   KeyboardAvoidingView,
   Platform,
   ScrollView,
+  Text,
   View,
 } from 'react-native';
 import Header from '../../components/header';
@@ -16,6 +21,7 @@ import {formatarSaidaDat} from '../../utils/textMaskFormat';
 import Button from '../../components/button';
 import {agendarAula, listarAlunos, returnEnumMaterias} from './Api';
 import {enumFormater} from '../../utils/enumFormater';
+import LoginContext from '../../context/TarefasContext';
 
 const Agendar: React.FC = (...props) => {
   const navigation = useNavigation();
@@ -27,9 +33,13 @@ const Agendar: React.FC = (...props) => {
   const [alunos, setAlunos] = useState([]);
 
   const [dataInicio, setDataInicio] = useState('');
+  const [hora, setHora] = useState('');
+  const [valor, setValor] = useState('');
   const [status, setStatus] = useState('');
   const [alunoId, setAlunoId] = useState('');
   const [materiaId, setMateriaId] = useState('');
+
+  const {state} = useContext(LoginContext);
 
   const [itemsStatus, setItemsStatus] = useState([
     {label: 'Pago', value: 'Pago'},
@@ -38,6 +48,8 @@ const Agendar: React.FC = (...props) => {
 
   const getMaterias = async () => {
     const materiasList = await returnEnumMaterias();
+
+    console.log(materiasList);
     setMaterias(enumFormater(materiasList));
   };
 
@@ -53,18 +65,23 @@ const Agendar: React.FC = (...props) => {
 
   const agendamento = async () => {
     try {
-      const {data} = await agendarAula({
+      const data = {
         dataInicio,
-        dataFinal: dataInicio,
+        dataFinal: '2011-11-11 11:11:11',
         status,
         remarque: false,
-        professorId: 1,
+        professorId: state.loginState.id,
         alunoId,
         materiaId,
-      });
+        hora,
+        valor,
+      };
+      console.log(data);
+      await agendarAula(data);
       navigation.navigate('DashBoard');
     } catch (error) {
-      Alert.alert('Não foi possível agendar a aula')
+      //console.log(error);
+      Alert.alert('Não foi possível agendar a aula');
     }
   };
 
@@ -136,6 +153,16 @@ const Agendar: React.FC = (...props) => {
                 setDataInicio(formatarSaidaDat(text.nativeEvent.text))
               }
             />
+            <Input
+              style={{width: '60%'}}
+              labelText="Hora"
+              autoCapitalize="none"
+              placeholder="18:00"
+              returnKeyType="next"
+              value={hora}
+              icon="calendar"
+              onChange={text => setHora(text.nativeEvent.text)}
+            />
 
             <SubTitleText
               style={{color: '#75848F', marginBottom: 1}}
@@ -150,7 +177,8 @@ const Agendar: React.FC = (...props) => {
               placeholder="00,00"
               returnKeyType="next"
               icon="clock"
-              onChange={text => null}
+              value={valor}
+              onChange={text => setValor(text.nativeEvent.text)}
             />
 
             <SubTitleText
@@ -159,7 +187,7 @@ const Agendar: React.FC = (...props) => {
               style={{color: '#424242', marginBottom: 4, marginTop: 24}}>
               Status
             </SubTitleText>
-            <View style={{zIndex: 2}}>
+            <View style={{zIndex: 4}}>
               <DropDownPicker
                 style={{
                   borderWidth: 0,

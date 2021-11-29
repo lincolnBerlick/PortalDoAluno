@@ -1,5 +1,5 @@
 import {useNavigation} from '@react-navigation/core';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   Alert,
   KeyboardAvoidingView,
@@ -12,19 +12,42 @@ import Header from '../../components/header';
 import SubTitleText from '../../components/subtitleText';
 import {Container, TextContent} from './styles';
 import DropDownPicker from 'react-native-dropdown-picker';
+import {getAula} from './Api';
 
-const Aula: React.FC = (...props) => {
-  const [cpfValue, setCpfValue] = useState('');
-  const [nome, setNome] = useState('');
-  const [dataNascimento, setDataNascimento] = useState('');
-  const [senha, setSenha] = useState('');
+const Aula = ({route, ...props}) => {
+  const navigation = useNavigation();
+  const [aluno, setAluno] = useState(null);
+  const [data, setData] = useState([]);
+  const [alunos, setAlunos] = useState([]);
+  const [hora, setHora] = useState([]);
+  const [valor, setValor] = useState([]);
 
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(null);
-  const [items, setItems] = useState([
-    {label: 'Apple', value: 'apple'},
-    {label: 'Banana', value: 'banana'},
-  ]);
+  const [items, setItems] = useState([]);
+
+  const getAulas = async aulaId => {
+    try {
+      console.log(aulaId);
+      const {data} = await getAula(aulaId);
+      setItemScreen(data);
+    } catch (error) {
+      Alert.alert('Não foi possível carregar a aula');
+    }
+  };
+
+  const setItemScreen = ({dataFinal, hora, valor, status, aluno: {nome}}) => {
+    setData(dataFinal);
+    setAluno(nome);
+    setHora(hora);
+    setValor(valor);
+    setItems([{label: status, value: status}]);
+    setValue(status);
+  };
+
+  useEffect(() => {
+    getAulas(route.params?.aulaId);
+  }, []);
 
   return (
     <>
@@ -48,18 +71,18 @@ const Aula: React.FC = (...props) => {
             <SubTitleText bold={false} sizeText={12}>
               Aluna
             </SubTitleText>
-            <TextContent>Luana Albertoni</TextContent>
+            <TextContent>{aluno}</TextContent>
 
             <SubTitleText bold={false} sizeText={12}>
               <Icon style={{marginRight: 5}} name="calendar" />
               {'  '}Data
             </SubTitleText>
-            <TextContent>12/11</TextContent>
+            <TextContent>{data}</TextContent>
             <SubTitleText bold={false} sizeText={12}>
-              <Icon style={{marginRight: 5}} name="clock" />
-              {'  '}Horário
+              <Icon style={{marginRight: 5}} name="calendar" />
+              {'  '}Hora
             </SubTitleText>
-            <TextContent>18:00</TextContent>
+            <TextContent>{hora}</TextContent>
 
             <View
               style={{
@@ -84,7 +107,7 @@ const Aula: React.FC = (...props) => {
             <SubTitleText bold={false} sizeText={12}>
               Valor
             </SubTitleText>
-            <TextContent>100,00</TextContent>
+            <TextContent>{valor}</TextContent>
 
             <SubTitleText bold={false} sizeText={14}>
               Status
@@ -98,6 +121,7 @@ const Aula: React.FC = (...props) => {
                 setOpen={setOpen}
                 setValue={setValue}
                 setItems={setItems}
+                listMode="SCROLLVIEW"
                 placeholder="Selecione um status"
               />
             </View>

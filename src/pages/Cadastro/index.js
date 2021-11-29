@@ -29,8 +29,8 @@ const Cadastro = ({navigation, screenName}) => {
       grauId: grau,
     };
     try {
+      console.log(professor);
       const response = await cadastrarProfessor(professor);
-      console.log(response);
       navigation.navigate('DashBoard');
     } catch (error) {
       console.log(error.response);

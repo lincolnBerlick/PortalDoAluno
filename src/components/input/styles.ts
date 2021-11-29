@@ -26,7 +26,7 @@ export const TextInput = styled.TextInput`
   font-size: 14px;
   font-style: normal;
   font-weight: 400;
-  line-height: 17px;
+
   text-align: left;
 `;
 

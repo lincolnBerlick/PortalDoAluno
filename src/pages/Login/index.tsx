@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {
   Alert,
   KeyboardAvoidingView,
@@ -12,10 +12,42 @@ import Input from '../../components/input';
 import {useNavigation} from '@react-navigation/native';
 import {formatarSaidaCPF} from '../../utils/textMaskFormat';
 import {Title, Container, Cadastrese} from './styles';
+import LoginContext from '../../context/TarefasContext';
+import {realizarLogin} from './Api';
 
 const Login: React.FC = () => {
   const navigation = useNavigation();
   const [cpfValue, setCpfValue] = useState('');
+  const [senhaValue, setSenhaValue] = useState('');
+
+  const {state, dispatch} = useContext(LoginContext);
+
+  const login = async () => {
+    if (cpfValue === '' || senhaValue === '') {
+      Alert.alert('Dados inválidos');
+      return;
+    }
+
+    const cpf = cpfValue.replace(/\D+/g, '');
+
+    console.log(cpf);
+    try {
+      const response = await realizarLogin(cpf, {senha: senhaValue});
+      if (response.status === 401) {
+        Alert.alert('Login ou senha incorretos');
+      } else if (response.status === 200) {
+        dispatch({
+          type: 'add',
+          payLoad: response.data,
+        });
+        navigation.navigate('DashBoard');
+      }
+    } catch (error) {
+      Alert.alert('Não foi possível efetuar o login.');
+    }
+
+    //navigation.navigate('DashBoard')
+  };
   return (
     <>
       <KeyboardAvoidingView
@@ -43,9 +75,11 @@ const Login: React.FC = () => {
               placeholder="**********"
               returnKeyType="next"
               icon="lock-outline"
+              value={senhaValue}
+              onChange={text => setSenhaValue(text.nativeEvent.text)}
             />
             <Button
-              onPress={() => navigation.navigate('DashBoard')}
+              onPress={() => login()}
               style={{marginTop: 32, marginBottom: 40}}>
               Entrar
             </Button>
@@ -63,7 +97,10 @@ const Login: React.FC = () => {
                 }}
               />
             </View>
-            <Cadastrese onPress={() => navigation.navigate('Cadastro')}>
+            <Cadastrese
+              onPress={() => {
+                navigation.navigate('Cadastro');
+              }}>
               Cadastre-se
             </Cadastrese>
           </Container>

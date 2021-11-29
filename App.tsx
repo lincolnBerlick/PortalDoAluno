@@ -12,70 +12,73 @@ import Agendar from './src/pages/agendar';
 import CadastroAluno from './src/pages/CadastroAluno';
 import Aluno from './src/pages/Aluno';
 import ListaAulas from './src/pages/ListaAulas';
+import {LoginProvider} from './src/context/TarefasContext';
 
 const Stack = createNativeStackNavigator();
 const App: React.FC = () => (
-  <NavigationContainer>
-    <StatusBar />
+  <LoginProvider>
+    <NavigationContainer>
+      <StatusBar />
 
-    <Stack.Navigator>
-      <Stack.Screen
-        options={{headerBackVisible: false, headerShown: false}}
-        name="Login"
-        component={Login}
-      />
-      <Stack.Screen
-        options={{
-          headerShown: false,
-        }}
-        name="Cadastro"
-        component={Cadastro}
-      />
-      <Stack.Screen
-        options={{
-          headerShown: false,
-        }}
-        name="DashBoard"
-        component={DashBoard}
-      />
+      <Stack.Navigator>
+        <Stack.Screen
+          options={{headerBackVisible: false, headerShown: false}}
+          name="Login"
+          component={Login}
+        />
+        <Stack.Screen
+          options={{
+            headerShown: false,
+          }}
+          name="Cadastro"
+          component={Cadastro}
+        />
+        <Stack.Screen
+          options={{
+            headerShown: false,
+          }}
+          name="DashBoard"
+          component={DashBoard}
+        />
 
-      <Stack.Screen
-        options={{
-          headerShown: false,
-        }}
-        name="Aula"
-        component={Aula}
-      />
-      <Stack.Screen
-        options={{
-          headerShown: false,
-        }}
-        name="Agendar"
-        component={Agendar}
-      />
-      <Stack.Screen
-        options={{
-          headerShown: false,
-        }}
-        name="CadastroAluno"
-        component={CadastroAluno}
-      />
-      <Stack.Screen
-        options={{
-          headerShown: false,
-        }}
-        name="Aluno"
-        component={Aluno}
-      />
-      <Stack.Screen
-        options={{
-          headerShown: false,
-        }}
-        name="ListaAulas"
-        component={ListaAulas}
-      />
-    </Stack.Navigator>
-  </NavigationContainer>
+        <Stack.Screen
+          options={{
+            headerShown: false,
+          }}
+          name="Aula"
+          component={Aula}
+        />
+        <Stack.Screen
+          options={{
+            headerShown: false,
+          }}
+          name="Agendar"
+          component={Agendar}
+        />
+        <Stack.Screen
+          options={{
+            headerShown: false,
+          }}
+          name="CadastroAluno"
+          component={CadastroAluno}
+        />
+        <Stack.Screen
+          options={{
+            headerShown: false,
+          }}
+          name="Aluno"
+          component={Aluno}
+        />
+        <Stack.Screen
+          options={{
+            headerShown: false,
+          }}
+          name="ListaAulas"
+          component={ListaAulas}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
+  </LoginProvider>
 );
 
 export default App;

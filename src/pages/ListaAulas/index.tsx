@@ -74,10 +74,12 @@ const ListaAulas = ({data, navigation}) => {
       status,
     } = data;
     const nomeCompleto = nomeAluno.split(' ');
+    const aulaId = data?.id;
 
     return (
       <View style={{marginRight: 8}}>
-        <TouchableOpacity onPress={() => navigation.navigate('Aula')}>
+        <TouchableOpacity
+          onPress={() => navigation.navigate('Aula', {aulaId: aulaId})}>
           <BigCard
             data={dataInicio}
             materia={nomeMateria}
@@ -143,7 +145,11 @@ const ListaAulas = ({data, navigation}) => {
 
           <View>
             <FlatList
-              data={aluno ? listaAulas.filter(item => item.aluno.id === aluno) : listaAulas}
+              data={
+                aluno
+                  ? listaAulas.filter(item => item.aluno.id === aluno)
+                  : listaAulas
+              }
               renderItem={Lista}
               keyExtractor={item => item.id}
               horizontal={false}
