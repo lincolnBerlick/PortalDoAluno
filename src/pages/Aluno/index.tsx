@@ -9,7 +9,7 @@ import {FlatList, TouchableOpacity} from 'react-native-gesture-handler';
 import {formatarSaidaCPF} from '../../utils/textMaskFormat';
 import {getAluno, listarAulas} from './Api';
 
-const Aluno = ({data, route}) => {
+const Aluno = ({navigation, data, route}) => {
   const [nome, setNome] = useState('');
   const [idade, setIdade] = useState('');
   const [cpf, setCpf] = useState('');
@@ -70,7 +70,6 @@ const Aluno = ({data, route}) => {
   };
 
   {
-    console.log(listaAulas);
   }
   return (
     <>

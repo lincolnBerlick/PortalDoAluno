@@ -1,5 +1,11 @@
 import React, {useState, useEffect} from 'react';
-import {KeyboardAvoidingView, Platform, ScrollView, View} from 'react-native';
+import {
+  Alert,
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
+  View,
+} from 'react-native';
 import Button from '../../components/button';
 import Header from '../../components/header';
 import Input from '../../components/input';
@@ -30,11 +36,11 @@ const Cadastro = ({navigation, screenName}) => {
       grauId: grau,
     };
     try {
-      console.log(professor);
       const response = await cadastrarProfessor(professor);
-      navigation.navigate('DashBoard');
+
+      navigation.navigate('Login');
     } catch (error) {
-      console.log(error.response);
+      Alert.alert('Não foi possível efetuar o cadastro');
     }
   };
 
@@ -42,9 +48,7 @@ const Cadastro = ({navigation, screenName}) => {
     try {
       const {data} = await buscaGraus();
       setGraus(enumFormater(data));
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   };
 
   useEffect(() => {
@@ -81,7 +85,7 @@ const Cadastro = ({navigation, screenName}) => {
               maxLength={16}
               onChange={text => setCrn(text.nativeEvent.text)}
             />
-            <View style={{marginTop: 20}}>
+            <View style={{marginTop: 20, zIndex: 3}}>
               <DropDownPicker
                 style={{
                   borderWidth: 0,

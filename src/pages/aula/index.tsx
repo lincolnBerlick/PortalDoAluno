@@ -18,7 +18,6 @@ const Aula = ({route, ...props}) => {
   const navigation = useNavigation();
   const [aluno, setAluno] = useState(null);
   const [data, setData] = useState([]);
-  const [alunos, setAlunos] = useState([]);
   const [hora, setHora] = useState([]);
   const [valor, setValor] = useState([]);
 
@@ -28,7 +27,6 @@ const Aula = ({route, ...props}) => {
 
   const getAulas = async aulaId => {
     try {
-      console.log(aulaId);
       const {data} = await getAula(aulaId);
       setItemScreen(data);
     } catch (error) {

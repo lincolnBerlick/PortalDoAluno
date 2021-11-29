@@ -30,7 +30,6 @@ const Login: React.FC = () => {
 
     const cpf = cpfValue.replace(/\D+/g, '');
 
-    console.log(cpf);
     try {
       const response = await realizarLogin(cpf, {senha: senhaValue});
       if (response.status === 401) {

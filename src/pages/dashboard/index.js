@@ -19,7 +19,6 @@ import {AlunosCardView, Container, VerAulasLink, CardAlunoText} from './styles';
 
 import LoginContext from '../../context/TarefasContext';
 
-
 const DashBoard = ({data, navigation}) => {
   const [listaAlunos, setListaAlunos] = useState([]);
   const [listaAulas, setListaAulas] = useState([]);
@@ -27,10 +26,10 @@ const DashBoard = ({data, navigation}) => {
   const {state} = useContext(LoginContext);
 
   const CardsAlunos = ({item: data}) => {
-    console.log(data);
     const nomeCompleto = data.nome.split(' ');
     return (
-      <TouchableOpacity onPress={() => navigation.navigate('Aluno',{cpfAluno:data.cpf})}>
+      <TouchableOpacity
+        onPress={() => navigation.navigate('Aluno', {cpfAluno: data.cpf})}>
         <AlunosCardView>
           <View style={{marginRight: 8}}></View>
           <Icon name="ios-person-outline" size={20} />
@@ -42,7 +41,6 @@ const DashBoard = ({data, navigation}) => {
     );
   };
 
-  console.log(state);
   const getAlunos = async () => {
     try {
       const {data} = await listarAlunos();
@@ -86,7 +84,7 @@ const DashBoard = ({data, navigation}) => {
       <View style={{marginRight: 8}}>
         <TouchableOpacity
           onPress={() =>
-            navigation.navigate('Aluno', {alunoCpf: data.aluno.cpf})
+            navigation.navigate('Aluno', {cpfAluno: data.aluno.cpf})
           }>
           <MiniCard
             data={dataInicio}

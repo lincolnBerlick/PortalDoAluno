@@ -49,7 +49,6 @@ const Agendar: React.FC = (...props) => {
   const getMaterias = async () => {
     const materiasList = await returnEnumMaterias();
 
-    console.log(materiasList);
     setMaterias(enumFormater(materiasList));
   };
 
@@ -76,11 +75,11 @@ const Agendar: React.FC = (...props) => {
         hora,
         valor,
       };
-      console.log(data);
+
       await agendarAula(data);
       navigation.navigate('DashBoard');
     } catch (error) {
-      //console.log(error);
+      //
       Alert.alert('Não foi possível agendar a aula');
     }
   };

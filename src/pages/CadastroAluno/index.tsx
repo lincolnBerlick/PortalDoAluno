@@ -28,9 +28,7 @@ const CadastroAluno = ({navigation, screenName}) => {
     try {
       const {data} = await buscaFormacoes();
       setFormacoes(enumFormater(data));
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   };
 
   const cadastro = async () => {
@@ -44,11 +42,9 @@ const CadastroAluno = ({navigation, screenName}) => {
     };
     try {
       const response = await cadastrarAluno(aluno);
-      console.log(response);
+
       navigation.navigate('DashBoard');
-    } catch (error) {
-      console.log(error.response);
-    }
+    } catch (error) {}
   };
 
   useEffect(() => {

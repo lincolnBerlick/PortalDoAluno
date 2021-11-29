@@ -15,6 +15,9 @@ import ListaAulas from './src/pages/ListaAulas';
 import {LoginProvider} from './src/context/TarefasContext';
 
 const Stack = createNativeStackNavigator();
+
+console.disableYellowBox = true;
+
 const App: React.FC = () => (
   <LoginProvider>
     <NavigationContainer>
